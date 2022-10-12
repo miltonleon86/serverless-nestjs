@@ -1,0 +1,36 @@
+service: gitlab-aws
+provider:
+  name: aws
+  region: ${env:AWS_REGION}
+  runtime: nodejs16.x
+  environment:
+    A_VARIABLE: ${env:ENV}
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
+
+functions:
+  app:
+    handler: src/lambda.handler
+    events:
+      - httpApi: ANY /
+
+  first:
+    handler: src/lambda.handler
+    events:
+      - httpApi:
+          method: any
+          path: /api/first
+
+  second:
+    handler: src/lambda.handler
+    events:
+      - httpApi:
+          method: any
+          path: /api/second
+
+custom:
+  serverless-offline: # Make it able to work local
+    httpPort: 80
+    host: 0.0.0.0
