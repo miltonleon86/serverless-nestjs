@@ -6,6 +6,7 @@
 $ npm i
 
 # development
+$ docker-compose build
 $ docker-compose up
 ```
 
